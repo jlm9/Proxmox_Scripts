@@ -5,3 +5,14 @@ Use this script to start up or shut down all VMs in a pool. This script was test
 ## Installation
 git clone https://github.com/jlm9/Proxmox_Scripts.git  
 pip install -r requirements.txt
+
+## Usage
+There are two arguments:  
+-a action  
+-p pool  
+  
+possible actions are:   
+start    
+stop
+
+Example usage: ./startstopscript -p test_pool -a start
