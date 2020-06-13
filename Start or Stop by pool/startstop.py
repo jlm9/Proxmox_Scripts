@@ -12,10 +12,11 @@ vmids=[]
 for argument, value in arguments :
 	if argument == '-p' :
 		pool = value
-		print("I got triggered")
+		#print("I got triggered")
 		print(pool)
 	elif argument == '-a' :
 		action = value
+		print(action)
 	else:
 		print("invalid argument, use -a (start or stop) & -p (pool)")
 		exit()
