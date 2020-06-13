@@ -5,7 +5,7 @@ Use this script to start up or shut down all VMs in a pool. This script was test
 ## Installation
 git clone https://github.com/jlm9/Proxmox_Scripts.git  
 chmod +x startstop.py  
-apt-get install jq
+sudo apt-get install jq  
 There is no requirements.txt since Proxmox has these packages in by default.
 ## Usage
 There are two arguments:  
@@ -16,4 +16,4 @@ possible actions are:
 start    
 stop
 
-Example usage: ./startstop.py -p test_pool -a start
+Example usage: sudo ./startstop.py -p test_pool -a start
