@@ -11,6 +11,7 @@ There is no requirements.txt since Proxmox has these packages in by default.
 There are two mandatory arguments:  
 -a action    
 -p pool  
+  
 And there are two optional arguments that were added to prevent shell crashes:  
 -i iterations (after how many vms started/stop do you want the script to temporarily stop after. I recommend 3-4 but play around with it)  
 -s sleep (how long do you want the script to stop for in seconds. I recommend 5 seconds but play around with it)
