@@ -21,4 +21,5 @@ start
 stop
 
 Example usage: sudo ./startstop.py -p test_pool -a start -i 3 -s 5  
-  This example would start all of the VMs in test_pool and would take a 5 second break for every 3 VMs started. 
+This example would start all of the VMs in test_pool and would take a 5 second break for every 3 VMs started.  
+For help use the -h option
