@@ -3,22 +3,32 @@
 import subprocess
 import sys
 import getopt
-
+import time
 full_arguments = sys.argv
 argument_list= full_arguments[1:]
-options = "a:p:"
+options = "a:p:s:i:h"
 arguments, values = getopt.getopt(argument_list, options)
 vmids=[]
+iterations = -1
+vms = 0
 for argument, value in arguments :
 	if argument == '-p' :
 		pool = value
-		#print("I got triggered")
+		print("I got triggered")
 		print(pool)
 	elif argument == '-a' :
 		action = value
-		print(action)
+	elif argument == '-s' :
+		sleep = int(value)
+	elif argument == '-i' :
+		iterations = int(value)
+		print("This is amount of iterations:" , iterations)
+		countby = int(value)
+	elif argument == '-h' :
+		print("Mandatory arguments are: -p (pool) & -a (action). -a can only be start or stop \n Optional arguments: -i (iterations of qm start/stop before pausing to give the server a break) & \n -s (time in seconds for how long to break for). \n For example, ./startstop.py -a start -p example_pool -i 5 -s 10 would start all vms in example_pool and pause every 5 machines for 5 seconds")
+		exit()
 	else:
-		print("invalid argument, use -a (start or stop) & -p (pool)")
+		print("invalid argument, type in ./startstop.py -h for help" )
 		exit()
 index=0
 i=0
@@ -50,5 +60,12 @@ for vmid in vmids:
 	else :
 		print("action must be either start or stop")
 		exit()
-	process = subprocess.Popen(cmd, shell=True)
+	subprocess.Popen(cmd, shell=True)
+	vms+=1
+	print("vms:", vms)
+	print("This is iterations", iterations)
 
+	if vms == iterations and iterations != -1 :
+		print("sleep was triggered")
+		time.sleep(sleep)
+		iterations = iterations + countby
