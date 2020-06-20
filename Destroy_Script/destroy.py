@@ -113,7 +113,6 @@ def use_range():
 			range1 = get_range()
 			continue
 	range1 = range1.replace("-"," ")
-	print("This is the reformated range", range1)
 	begvmid = int(range1.partition(' ')[0].strip())
 	endvmid = int(range1.partition(' ')[2].strip())
 	endvmid+=1
