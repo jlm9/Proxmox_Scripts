@@ -32,7 +32,7 @@ def is_confirmed(function, vmid, times_ran): # Function asks the user if there w
 	elif function == "pool" and times_ran == 3:
 		confirmed = input("Please confirm if {} is the pool you want to destroy (y/n) : ".format(vmid))
 	elif function == "final_confirm" and times_ran == 3:
-		print(vmids)
+		print(sorted(vmids))
 		confirmed = input("Please confirm if this list of vmids is accurate, if it is not this is your last chance to cancel (don't worry about duplicate values, this program cleans the list (y/n): ")
 	elif function == "iterations" and times_ran == 3:
 		confirmed = input("Please confirm if after every {} vms you want the script to break (y/n) : ".format(vmid))
