@@ -10,8 +10,9 @@ This script is designed to make it easier to mass destroy virtual machines on a 
   4. What is with these iterations and sleep options? Answer: It allows you to pause the script between x amount of vms stopped & destroyed. This helps to prevent shell crashing (Don't worry, even without it you will not damage your server in any way)  
   
   ## Installation
-  pip install -r requirements.txt  
+  pip3 install -r requirements.txt  
   chmod +x destroyscript.py
+  apt-get install jq
   If you want to have less input, get rid of all calls to is_confirmed function (Not Recommended).      
    Note: This was tested with python 3.7, it is unknown if it works with lower.  
    Disclaimer: Please ensure you read the confirmations, this is a destructive script.
