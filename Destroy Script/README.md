@@ -12,6 +12,6 @@ This script is designed to make it easier to mass destroy virtual machines on a 
   ## Installation
   pip install -r requirements.txt  
   chmod +x destroyscript.py
-  If you want to have less input, get rid of all calls to is_confirmed function.
+  If you want to have less input, get rid of all calls to is_confirmed function (Not Recommended).      
    Note: This was tested with python 3.7, it is unknown if it works with lower.  
    Disclaimer: Please ensure you read the confirmations, this is a destructive script.
