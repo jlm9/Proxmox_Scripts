@@ -221,20 +221,29 @@ def stop(iterations, sleep):
 
             elif re.search(r'does not exist', error):
                 print("No such vmid, skipping {}".format(vmid))
+		
+def purge():
+        purge = input("Do you want to purge the VM from all backup cron jobs? (y/n) ")
+        if purge == 'yes' or purge == 'y':
+                purge = 'true'
+                return purge
+        else:
+                purge = 'false'
+                return purge
 
-def destroy(iterations, sleep):
+def destroy(iterations, sleep, purge):
     # Destroys the vmids, runs after stop
     vmids_numpy = np.array(vmids)
     vms = 0
 
     for vmid in np.unique(vmids_numpy):
-        cmd = "qm destroy {}".format(vmid)
+        cmd = "qm destroy {} --purge {}".format(vmid, purge)
         if iterations == 0:
             destruction = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             output, error = destruction.communicate()
 
             if re.search(r'does not exist', error):
-                cmd = "pct destroy {}".format(vmid)
+                cmd = "pct destroy {} --purge {}".format(vmid, purge)
                 destruction = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
                 if re.search(r'does not exist', error):
@@ -251,7 +260,7 @@ def destroy(iterations, sleep):
                     iterations = iterations + countby
 
             elif re.search(r'does not exist', error):
-                cmd = "pct destroy {}".format(vmid)
+                cmd = "pct destroy {} --purge {}".format(vmid, purge)
                 destruction = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
                 output, error = destruction.communicate()
 
@@ -347,4 +356,4 @@ iterations = iterations()
 countby = iterations #determines when to make script sleep
 sleep = goto_sleep(iterations)
 stop(iterations, sleep)
-destroy(iterations, sleep)
+destroy(iterations, sleep, purge())
