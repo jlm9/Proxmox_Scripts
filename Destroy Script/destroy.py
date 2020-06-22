@@ -253,7 +253,7 @@ def stop(iterations, sleep):
             elif re.search(r'does not exist', error):
                 print("No such vmid, skipping {}".format(vmid))
 
-def purge():
+def purge(): #comment this out if your proxmox version does not support this
 	purge = input("Do you want to purge the VM from all backup cron jobs? (y/n) ")
 	if purge == 'yes' or purge == 'y':
 		purge = 'true'
@@ -262,13 +262,13 @@ def purge():
 		purge = 'false'
 		return purge
 
-def destroy(iterations, sleep, purge):
+def destroy(iterations, sleep, purge): #Delete purge parameter if your proxmox version does not support this
     # Destroys the vmids, runs after stop
     vmids_numpy = np.array(vmids)
     vms = 0
 
     for vmid in np.unique(vmids_numpy):
-        cmd = "qm destroy {} --purge {}".format(vmid, purge)
+        cmd = "qm destroy {} --purge {}".format(vmid, purge) # Delete purge if your proxmox version does not support this.
         if iterations == 0:
             destruction = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             output, error = destruction.communicate()
@@ -389,4 +389,4 @@ iterations = iterations()
 countby = iterations #determines when to make script sleep
 sleep = goto_sleep(iterations)
 stop(iterations, sleep)
-destroy(iterations, sleep, purge())
+destroy(iterations, sleep, purge()) #delete purge if your version does not support it.
