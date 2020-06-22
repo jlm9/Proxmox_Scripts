@@ -1,7 +1,7 @@
 # Proxmox Destroy Script  
   
 ## Information  
-This script is designed to make it easier to mass destroy virtual machines on a Proxmox server. It is interactive and confirms that the vmid value is correct at every step of the way in order to ensure that the user does not accidently destroy something important. You can specify a pool to destroy, a range of vmids to destroy, and a single vmid to destroy. It also allows you to input as many as each type as you like.  
+This script is designed to make it easier to mass destroy virtual machines on a Proxmox server. It is interactive and confirms that the vmid value is correct at every step of the way in order to ensure that the user does not accidently destroy something important. You can specify a pool to destroy, a range of vmids to destroy, and a single vmid to destroy. It also allows you to input as many as each type as you like. The purge option is not available on certain versions of proxmox. If this happens, comment out the purge information on the script.  
   
   ## FAQS (Even though it was just created and there's been no questions)    
   1. Do I have to stop all the vms I want to destroy first? Answer: Nope! This script has a function that stops all VMs the user inputed before destroying them.  
