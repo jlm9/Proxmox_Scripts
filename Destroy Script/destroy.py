@@ -284,7 +284,7 @@ def destroy(iterations, sleep, purge): #Delete purge parameter if your proxmox v
             destruction = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
             output, error = destruction.communicate()
 
-            if re.search(r'successfully removed', output):
+            if re.search(r'successfully removed', output) or not re.search(r'does not exist', error):
                 vms+=1
                 if iterations == vms:
                     time.sleep(sleep)
