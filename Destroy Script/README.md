@@ -15,5 +15,6 @@ This script is designed to make it easier to mass destroy virtual machines on a 
   apt-get install jq  
   Make sure you check if your server has the --purge option on the qm destroy command. If not, refer to the script comments to comment out all mentions of --purge.  
   If you want to have less input, get rid of all calls to is_confirmed function (Not Recommended).      
-   Note: This was tested with python 3.7, it is unknown if it works with lower.  
+  Recommendation: You can install screen (apt -get install screen) and run the script using screen. Then press ctrl-a then the d key to detach the screen session after all inputs have been completed. Then you can log out and it will still run.
+Note: This was tested with python 3.7, it is unknown if it works with lower.  
    Disclaimer: Please ensure you read the confirmations, this is a destructive script.
