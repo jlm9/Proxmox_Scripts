@@ -7,8 +7,10 @@ import re
 
 names = []
 vmids = []
+#Parts were written by Christian Puleio as well. I might refactor this code to make it use classes instead of functions.
 
 def types():
+	#Determines how users want to input the vmids they want to create
 	resultcode = 0
 	single = input("Do you want to make a single clone (note, you can choose a single clone and also put in a range)?(y/n) ")
 	range = input("Do you want to make more than one clone? (note, you can input a range of vmids to create and also input a single vmid to create) (y/n)")
@@ -20,6 +22,7 @@ def types():
 	return resultcode
 
 def cloud_init(oldid):
+	#Sets up the cloud init drive and converts to template
 	print("If you have not installed cloudinit on the vm you want to clone go do that")
 	setup = input("Did you set up the cloud init drive on the proxmox hardware tab?(y/n): ").lower()
 	template = input("Did you make the vm a template?(y/n): ").lower()
@@ -45,6 +48,7 @@ def cloud_init(oldid):
 		convert_to_template = subprocess.Popen(template_convert, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 
 def full_clone(oldid):
+	#Figures out if users want to create a full or linked clone then returns a TRUE if full FALSE if linked. Also figures out if user wants cloudinit
 	if is_confirmed('cloud_init', 0):
 		cloud_init(oldid)
 		type = input("Do you want to make a linked or full clone? (linked/full) ").lower()
@@ -68,6 +72,7 @@ def full_clone(oldid):
 		exit()
 
 def is_confirmed(function, vmid):
+	#Function to confirm choices
 	if function == "dolly":
 		confirmed = input("Please confirm if {} is the vmid you want to clone (y/n): ".format(vmid))
 	elif function == "range":
@@ -102,7 +107,7 @@ def anotherone(function): #Determines if the user wants to enter in another sing
 		return True
 
 def single():
-
+	#Function to add a single vmid to list of vmids to create
 	vmid = input("Please enter the vmid you want to create:")
 	while True:
 		if is_confirmed("single", vmid) and vmid not in vmids:
@@ -117,13 +122,14 @@ def single():
 			break
 
 def get_range():
-
+	#Function to retrieve range, does not input to vmids list yet
 	begvmid = input("Enter beginning vmid in the range of vmids you want to create: ")
 	endvmid = input("Enter the ending vmid in the range you want to create : ")
 	range1 = "{}-{}".format(begvmid, endvmid)
 	return range1
 
 def use_range():
+	#Function to append all vms in a range to the vmids array
 	while True:
 		range1 = get_range()
 		while [ i == 0 ]:
@@ -146,6 +152,7 @@ def use_range():
 		else:
 			break
 def name():
+	#Function to retrieve names
 	vmlength = len(vmids)
 	print(vmlength)
 	for number in range(0,vmlength):
@@ -156,6 +163,7 @@ def name():
 	#namelen = len(vmidnames)
 
 def format():
+	#Function to retreive harddrive format
 	format = input("Please select a format<qcow2|raw|vmdk> : ")
 	while True:
 		if (format == "qcow2" or format == "raw" or format == "vmdk"):
@@ -165,6 +173,7 @@ def format():
 			format = input("Invalid input please try again!")
 
 def dolly():
+	#Function to retrieve the vmid of vm to be cloned
 	oldid = int(input("Please input the vmid you want to clone: "))
 	while True:
 		if is_confirmed("dolly", oldid):
@@ -174,6 +183,7 @@ def dolly():
 			continue
 
 def get_ip_information():
+	#Function to get ip information for cloudinit, in the future will add users and sshkey to script
 	ip_address_range = input("Please input the ip range you want to set for your vms (cidr is next input)")
 	cidr = input("Please input the cidr you want: ")
 	ip_list = []
@@ -189,6 +199,7 @@ def get_ip_information():
 
 
 def qmclone(oldid, full, pool, format):
+	#Function to carry out the cloning
 	print("qmclone triggered")
 	vms=0
 	counter=0
@@ -213,6 +224,7 @@ def qmclone(oldid, full, pool, format):
 				else:
 					break
 def customize_machines():
+	#Function to add ip information to cloudinit drives, executed after cloning
 	ip_list, gateway, nameservers = get_ip_information()
 	counter = 0
 	for vmid in vmids:
@@ -222,6 +234,7 @@ def customize_machines():
 		counter+=1
 
 def qm_start():
+	#Function to start vms after cloning, and optional customizing
 	vms=0
 	for vmid in vmids:
 		cmd = "nohup qm start {}".format(vmid)
