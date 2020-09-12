@@ -5,7 +5,6 @@ import time
 import ipaddress
 import re
 
-i = 0
 names = []
 vmids = []
 
@@ -105,7 +104,7 @@ def anotherone(function): #Determines if the user wants to enter in another sing
 def single():
 
 	vmid = input("Please enter the vmid you want to create:")
-	while [i == 0]:
+	while True:
 		if is_confirmed("single", vmid) and vmid not in vmids:
 			vmids.append(vmid)
 		else:
@@ -125,7 +124,7 @@ def get_range():
 	return range1
 
 def use_range():
-	while [ i == 0]:
+	while True:
 		range1 = get_range()
 		while [ i == 0 ]:
 			if is_confirmed("range", range1):
@@ -158,8 +157,7 @@ def name():
 
 def format():
 	format = input("Please select a format<qcow2|raw|vmdk> : ")
-	i = 0
-	while [ i == 0 ]:
+	while True:
 		if (format == "qcow2" or format == "raw" or format == "vmdk"):
 			return format
 			break
@@ -168,7 +166,7 @@ def format():
 
 def dolly():
 	oldid = int(input("Please input the vmid you want to clone: "))
-	while [ i == 0 ]:
+	while True:
 		if is_confirmed("dolly", oldid):
 			return oldid
 		else:
