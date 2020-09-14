@@ -250,7 +250,7 @@ if is_confirmed("disown", 0):
 	cmd = "disown -h"
 	disown = subprocess.Popen(cmd, shell = True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-while [ i == 0 ]:
+while True:
 
 	resultcode= types()
 
