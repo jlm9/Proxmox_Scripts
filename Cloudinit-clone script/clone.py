@@ -132,7 +132,7 @@ def use_range():
 	#Function to append all vms in a range to the vmids array
 	while True:
 		range1 = get_range()
-		while [ i == 0 ]:
+		while True:
 			if is_confirmed("range", range1):
 				print("triggered")
 				break
